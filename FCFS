@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <ctime>
+
+using namespace std;
+
+// Define constants
+const int NUM_FLOORS = 20;
+const int MAX_CAPACITY = 15;
+const int NUM_ELEVATORS = 5;
+
+// Enum for elevator state
+enum class ElevatorState { IDLE, MOVING };
+
+// Person structure
+struct Passenger {
+    int passengerId;
+    int destinationFloor;
+};
+
+// Elevator class
+class Elevator {
+private:
+    int currentFloor;
+    int capacity;
+    ElevatorState state;
+    vector<Passenger> passengers;
+
+public:
+    Elevator() : currentFloor(0), capacity(MAX_CAPACITY), state(ElevatorState::IDLE) {}
+
+    void addPassenger(Passenger passenger) {
+        passengers.push_back(passenger);
+    }
+
+    void removePassenger(int passengerId) {
+        for (auto it = passengers.begin(); it != passengers.end(); ++it) {
+            if (it->passengerId == passengerId) {
+                passengers.erase(it);
+                break;
+            }
+        }
+    }
+
+    void moveToFloor(int destinationFloor) {
+        currentFloor = destinationFloor;
+    }
+
+    bool isFull() const {
+        return passengers.size() >= capacity;
+    }
+
+    int getCurrentFloor() const {
+        return currentFloor;
+    }
+
+    int getCapacity() const {
+        return capacity;
+    }
+
+    ElevatorState getState() const {
+        return state;
+    }
+};
+
+// Elevator Controller class
+class ElevatorController {
+pri
